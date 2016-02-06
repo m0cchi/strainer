@@ -13,12 +13,6 @@
                 ,(lambda (env)
                    '(404 (:content-type "text/plain") ("404 NotFound")))))
 
-(defun register-route (route)
-  (let* ((method (getf route :method))
-         (func (coerce method 'function)))
-    (setf (getf route :method) func)
-    (push route *routes*)))
-
 (defun defroute- (route)
   (let* ((method-type (nth 0 route))
          (path (nth 1 route))
@@ -27,6 +21,12 @@
       :path ,path
       :method (lambda (env)
                 (declare (ignorable env)) ,method))))
+
+(defun register-route (route)
+  (let* ((method (getf route :method))
+         (func (coerce method 'function)))
+    (setf (getf route :method) func)
+    (push route *routes*)))
 
 (defmacro defroute (route)
   `(register-route (quote ,(defroute- route))))
@@ -50,7 +50,6 @@
   (let* ((method-type (getf env :request-method))
          (path (getf env :path-info)))
     (funcall (getf (search-route method-type path) :method) env)))
-
 
 (defun start (&key (port 5000) (address "0.0.0.0") (worker-num nil))
   (run #'execute :port port :address address :worker-num worker-num))
