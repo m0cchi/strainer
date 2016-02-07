@@ -20,5 +20,6 @@ Author: mocchit
   :components ((:module "src"
                         :components
                 ((:file "util")
-                 (:file "strainer"))))
+                 (:file "strainer")
+                 (:file "common-util"))))
   :description "web application framework")
