@@ -11,7 +11,7 @@
                 :file-exists-p)
   (:export :respond :respond-with-file))
 
-(in-package :strainer-util)
+(in-package :strainer.util)
 
 (defun respond (&key (status 200) header body)
   `(,status ,header ,body))
