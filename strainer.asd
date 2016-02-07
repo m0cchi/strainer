@@ -13,8 +13,12 @@ Author: mocchit
   :author "mocchi"
   :license "BSD License"
   :depends-on (:flexi-streams
+               :trivial-mimes
+               :uiop
+               :local-time
                :woo)
   :components ((:module "src"
                         :components
-                ((:file "strainer"))))
+                ((:file "util")
+                 (:file "strainer"))))
   :description "web application framework")

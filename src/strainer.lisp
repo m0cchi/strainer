@@ -47,8 +47,8 @@
     (or (car route) *404*)))
 
 (defun execute (env)
-  (let* ((method-type (getf env :request-method))
-         (path (getf env :path-info)))
+  (let ((method-type (getf env :request-method))
+        (path (getf env :path-info)))
     (funcall (getf (search-route method-type path) :method) env)))
 
 (defun start (&key (port 5000) (address "0.0.0.0") (worker-num nil))
