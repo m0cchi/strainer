@@ -9,6 +9,11 @@
                 :format-rfc1123-timestring)
   (:import-from :uiop
                 :file-exists-p)
+  (:import-from :cl-fad
+                :directory-exists-p)
+  (:import-from :strainer.common-util
+                :search-file
+                :file-path-to-uri)
   (:export :respond :respond-with-file))
 
 (in-package :strainer.util)
@@ -28,6 +33,15 @@
                             :if-does-not-exist nil)
                     (respond 
                      :header `(:content-type ,content-type
-                                            :content-length ,(file-length stream)
-                                            :last-modified ,timestamp)
+                               :content-length ,(file-length stream)
+                               :last-modified ,timestamp)
                      :body file-p))))
+
+(defmacro set-public-dir (path)
+  (let ((path-string-len (string-size-in-octets (namestring (directory-exists-p path))))
+        (files (search-files path))
+        (routes '()))
+    (loop for file-p in files while file-p do
+          (push `(:get ,(file-path-to-uri file-p path-string-len) ()
+                       (respond-with-file http-ink::env ,(namestring file-p))) routes))
+    (append '(defroutes) routes)))

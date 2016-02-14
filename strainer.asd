@@ -16,10 +16,11 @@ Author: mocchit
                :trivial-mimes
                :uiop
                :local-time
+               :cl-fad
                :woo)
   :components ((:module "src"
                         :components
-                ((:file "util")
+                ((:file "util" :depends-on("common-util"))
                  (:file "strainer")
                  (:file "common-util"))))
   :description "web application framework")
