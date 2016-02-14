@@ -12,6 +12,7 @@
   (:import-from :cl-fad
                 :directory-exists-p)
   (:import-from :strainer.common-util
+                :size-of-string
                 :search-file
                 :file-path-to-uri)
   (:export :respond :respond-with-file))
@@ -38,7 +39,7 @@
                      :body file-p))))
 
 (defmacro set-public-dir (path)
-  (let ((path-string-len (string-size-in-octets (namestring (directory-exists-p path))))
+  (let ((path-string-len (size-of-string (namestring (directory-exists-p path))))
         (files (search-files path))
         (routes '()))
     (loop for file-p in files while file-p do
