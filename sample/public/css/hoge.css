@@ -1,0 +1,29 @@
+html,body, #content{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#content > * {
+    width: 100%;
+    height: 50%;
+    margin: 0;
+    padding: 0;
+    color: #302020;
+    font-size: 160px;
+}
+
+#top {
+    background-color: #EE5533;
+}
+
+#top:hover {
+    z-index: 1;
+    background-color: #EE7755;
+}
+
+#bottom {
+    background-color: #5533EE;
+    text-align: right;
+}

@@ -1,0 +1,27 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+(ql:quickload '(:woo :strainer))
+
+(strainer:defroutes
+ (:get "/" (strainer.util:respond-with-file "./public/index.html"))
+ (:post "/api/hello" (strainer.util:respond
+            :header `(:content-type "text/html"
+                      :content-length ,(strainer.common-util:size-of-string "hello"))
+            :body '("hello api"))))
+
+(strainer:defroute
+ (:get "/hello" (strainer.util:respond
+            :header `(:content-type "text/html"
+                      :content-length ,(strainer.common-util:size-of-string "hello"))
+            :body '("hello"))))
+
+
+(strainer.util:set-public-dir "./public")
+
+(defun main (&rest argv)
+  (declare (ignorable argv))
+  (strainer:start))
+
