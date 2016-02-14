@@ -20,7 +20,7 @@ Author: mocchit
                :woo)
   :components ((:module "src"
                         :components
-                ((:file "util" :depends-on("common-util"))
+                ((:file "util" :depends-on("strainer" "common-util"))
                  (:file "strainer")
                  (:file "common-util"))))
   :description "web application framework")

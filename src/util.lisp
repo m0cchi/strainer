@@ -13,9 +13,11 @@
                 :directory-exists-p)
   (:import-from :strainer.common-util
                 :size-of-string
-                :search-file
+                :search-files
                 :file-path-to-uri)
-  (:export :respond :respond-with-file))
+  (:import-from :strainer
+                :defroutes)
+  (:export :respond :respond-with-file :set-public-dir))
 
 (in-package :strainer.util)
 
@@ -43,6 +45,6 @@
         (files (search-files path))
         (routes '()))
     (loop for file-p in files while file-p do
-          (push `(:get ,(file-path-to-uri file-p path-string-len) ()
-                       (respond-with-file http-ink::env ,(namestring file-p))) routes))
+          (push `(:get ,(file-path-to-uri file-p path-string-len)
+                       (respond-with-file ,(namestring file-p))) routes))
     (append '(defroutes) routes)))
