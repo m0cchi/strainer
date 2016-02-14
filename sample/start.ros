@@ -9,7 +9,7 @@ exec ros -Q -- $0 "$@"
  (:get "/" (strainer.util:respond-with-file "./public/index.html"))
  (:post "/api/hello" (strainer.util:respond
             :header `(:content-type "text/html"
-                      :content-length ,(strainer.common-util:size-of-string "hello"))
+                      :content-length ,(strainer.common-util:size-of-string "hello api"))
             :body '("hello api"))))
 
 (strainer:defroute
